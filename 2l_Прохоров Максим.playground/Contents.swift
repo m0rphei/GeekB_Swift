@@ -60,9 +60,9 @@ array
 //5. * Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 100 элементов.
 //Числа Фибоначчи определяются соотношениями Fn=Fn-1 + Fn-2.
 
-var fib_array: Array<UInt64> = [0]
+var fib_array: Array<Decimal> = [0]
 
-func newFib(temp_array: Array<UInt64>) -> UInt64 {
+func newFib(temp_array: Array<Decimal>) -> Decimal {
     if temp_array.count == 0 {
         return 1
     } else {
@@ -72,10 +72,7 @@ func newFib(temp_array: Array<UInt64>) -> UInt64 {
 
 repeat {
     fib_array.append(newFib(temp_array: fib_array))
-}while fib_array.count < 94 //Затрудняюсь как посчитать больше 93-х, на сколько понимаю - не зватает размера переменной
-//fib_array[94] == 12200160415121876738
-//UInt64.max == 18446744073709551615
-
+}while fib_array.count < 100
 
 //6. * Заполнить массив из 100 элементов различными простыми числами. Натуральное число, большее единицы, называется простым, если оно делится только на себя и на единицу. Для нахождения всех простых чисел не больше заданного числа n, следуя методу Эратосфена, нужно выполнить следующие шаги:
 //a. Выписать подряд все целые числа от двух до n (2, 3, 4, ..., n).
@@ -84,4 +81,23 @@ repeat {
 //d. Найти первое не зачёркнутое число в списке, большее, чем p, и присвоить значению переменной p это число.
 //e. Повторять шаги c и d, пока возможно.
 
-
+var whole_number: Array<Int> = [2]
+var whole_number_max: Int = 100
+var simple_number: Array<Int> = []
+repeat {
+    whole_number.append(whole_number.last! + 1)
+}while whole_number.count < whole_number_max
+whole_number.count
+whole_number
+repeat {
+    simple_number.append(whole_number.first!)
+    whole_number.dropFirst()
+    if whole_number.count != 0 {
+        var ind = whole_number.count
+        repeat {
+            ind -= 1
+            if (whole_number[ind] % simple_number.last!) == 0 { whole_number.remove(at:(ind)) }
+        }while ind > 0
+    }
+}while whole_number.count > 0
+simple_number
